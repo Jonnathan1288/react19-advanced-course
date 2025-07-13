@@ -44,24 +44,6 @@ export const useTodoSaveMutation = ({ reset }: TodoSaveMutationInterface) => {
     });
 };
 
-export const useTodoDeleteMutation = () => {
-    const { remove, itemSelect } = useTodoStore();
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationKey: ["delete-todo"],
-        mutationFn: async () => {
-            await remove(itemSelect?.id ?? 0);
-        },
-        onError: (error) => {
-            toast.error("Error: " + error.message);
-        },
-        onSuccess: () => {
-            toast.success("Successfull");
-            queryClient.invalidateQueries({ queryKey: ["todo-search"] });
-        },
-    });
-};
-
 export const useTodoUpdateMutation = () => {
     const { update, itemSelect, setShowModal } = useTodoStore();
     const queryClient = useQueryClient();
@@ -81,6 +63,24 @@ export const useTodoUpdateMutation = () => {
         onSuccess: () => {
             toast.success("Successfull");
             setShowModal(false);
+            queryClient.invalidateQueries({ queryKey: ["todo-search"] });
+        },
+    });
+};
+
+export const useTodoDeleteMutation = () => {
+    const { remove, itemSelect } = useTodoStore();
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationKey: ["delete-todo"],
+        mutationFn: async () => {
+            await remove(itemSelect?.id ?? 0);
+        },
+        onError: (error) => {
+            toast.error("Error: " + error.message);
+        },
+        onSuccess: () => {
+            toast.success("Successfull");
             queryClient.invalidateQueries({ queryKey: ["todo-search"] });
         },
     });

@@ -1,0 +1,7 @@
+services:
+    react-router:
+        image: jonnathan017/react-router:latest
+        container_name: react-router
+        ports:
+            - "3000:80"
+        restart: unless-stopped

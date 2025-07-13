@@ -1,7 +1,7 @@
 services:
-    react-router:
-        image: jonnathan017/react-router:latest
-        container_name: react-router
+    react-supabase:
+        image: jonnathan017/react-supabase:latest
+        container_name: react-supabase
         ports:
             - "3000:80"
         restart: unless-stopped
